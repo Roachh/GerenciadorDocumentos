@@ -14,10 +14,10 @@ namespace TesteProcedimentosOperacionais.Controllers
 
         public IActionResult Index()
         {
-            return RedirectToAction("Cadastro");
+            return RedirectToAction("Cadastrar");
         }
 
-        public IActionResult Cadastro()
+        public IActionResult Cadastrar()
         {
             return View();
         }
@@ -28,10 +28,27 @@ namespace TesteProcedimentosOperacionais.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar(DocumentoModel documento)
+        public async Task<IActionResult> Cadastrar(DocumentoModel documento, IFormFile file)
         {
-            _documentoRepositorio.Adicionar(documento);
-            return RedirectToAction("Cadastro");
+            Console.WriteLine("documento: " + documento.Titulo);
+            Console.WriteLine("file: " + file);
+
+            if (file != null && file.Length > 0)
+            {
+                var fileTime = DateTime.UtcNow.ToString("yyMMddHHmmss");
+                var fileName = fileTime + Path.GetFileName(file.FileName);
+                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", fileName);
+                documento.Arquivo = filePath;
+                Console.WriteLine(documento);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+
+                _documentoRepositorio.Adicionar(documento);    
+            }
+            return RedirectToAction("Cadastrar");
         }
     }
 }

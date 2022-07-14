@@ -7,8 +7,8 @@
     <h1 class="display-4">Cadastro</h1>    
 </div>
 
-<form asp-controller="Documento" asp-action="Cadastrar" method="post">
-  <div class="form-group mb-3">
+<form asp-controller="Documento" asp-action="Cadastrar" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-3">
     <label for="codigo" class="mb-1">Código</label>
     <input type="number" asp-for="Codigo" class="form-control" id="codigo">
   </div>
@@ -30,13 +30,9 @@
       <option>5</option>
     </select>
   </div>
-    @*<div class="form-group mb-3">
-    <label for="arquivo" class="mb-1">Arquivo</label>
-    <input type="file" asp-for="Arquivo" class="form-control" id="arquivo">
-  </div>*@
   <div class="form-group mb-3">
     <label for="arquivo" class="mb-1">Arquivo</label>
-    <input type="text" asp-for="Arquivo" class="form-control" id="arquivo" placeholder="Arquivo">
+    <input type="file" name="file" asp-for="Arquivo" class="form-control" id="arquivo" placeholder="Arquivo">
   </div>
   <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>
