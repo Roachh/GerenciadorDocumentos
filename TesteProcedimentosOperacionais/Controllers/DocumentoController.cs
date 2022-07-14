@@ -20,11 +20,10 @@ namespace TesteProcedimentosOperacionais.Controllers
         public IActionResult Cadastro()
         {
             return View();
-
         }
         public IActionResult Consulta()
-        {
-            List<DocumentoModel> documentos = _documentoRepositorio.BuscarTodos();
+        {            
+            List<DocumentoModel> documentos = _documentoRepositorio.BuscarTodos();         
             return View(documentos);
         }
 

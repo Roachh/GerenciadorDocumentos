@@ -1,4 +1,4 @@
-﻿@*@model List<DocumentoModel>*@
+﻿@model List<DocumentoModel>
 @{
     ViewData["Title"] = "Lista de Documentos";
 }
@@ -15,7 +15,7 @@
     </tr>
   </thead>
   <tbody>
-      @*  @if(Model != null && Model.Any())
+        @if(Model != null && Model.Any())
         {
             foreach (var documento in Model)
             {
@@ -27,7 +27,7 @@
                       <td><a type="submit" class="btn btn-primary">Download</a></td>
                  </tr>
             }
-        }*@
+        }
         <tr>
       <th scope="row">2</th>
       <td>Procedimento 2</td>

@@ -11,7 +11,7 @@ namespace TesteProcedimentosOperacionais.Repositorio
             _bancoContext = bancoContext;
         }
         public List<DocumentoModel> BuscarTodos()
-        {
+        {            
             return _bancoContext.Documentos.ToList();
         }
         public DocumentoModel Adicionar(DocumentoModel documento)
