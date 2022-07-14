@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TesteProcedimentosOperacionais.Data;
+using TesteProcedimentosOperacionais.Repositorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,9 @@ builder.Services.AddDbContext<BancoContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+builder.Services.AddScoped<IDocumentoRepositorio, DocumentoRepositorio>();
+
+
 
 var app = builder.Build();
 

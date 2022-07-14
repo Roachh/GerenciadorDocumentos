@@ -32,10 +32,6 @@ namespace TesteProcedimentosOperacionais.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Processo")
                         .IsRequired()
                         .HasColumnType("longtext");

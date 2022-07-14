@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DocumentoModel
+@{
     ViewData["Title"] = "Cadastro de Documento";
 }
 
@@ -6,22 +7,22 @@
     <h1 class="display-4">Cadastro</h1>    
 </div>
 
-<form>
+<form asp-controller="Documento" asp-action="Cadastrar" method="post">
   <div class="form-group mb-3">
     <label for="codigo" class="mb-1">Código</label>
-    <input type="number" class="form-control" id="codigo">
+    <input type="number" asp-for="Codigo" class="form-control" id="codigo">
   </div>
    <div class="form-group mb-3">
     <label for="titulo" class="mb-1">Título</label>
-    <input type="text" class="form-control" id="titulo" placeholder="Título do Procedimento">
+    <input type="text" asp-for="Titulo" class="form-control" id="titulo" placeholder="Título do Procedimento">
   </div>
    <div class="form-group mb-3">
     <label for="categoria" class="mb-1">Categoria</label>
-    <input type="text" class="form-control" id="categoria" placeholder="Categoria do Procedimento">
+    <input type="text" asp-for="Categoria" class="form-control" id="categoria" placeholder="Categoria do Procedimento">
   </div>
  <div class="form-group mb-3">
-    <label for="processos" class="mb-1">processos</label>
-    <select class="form-control" id="processos">
+    <label for="processo" class="mb-1">Processo</label>
+    <select asp-for="Processo" class="form-control" id="processo">
       <option>1</option>
       <option>2</option>
       <option>3</option>
@@ -29,9 +30,13 @@
       <option>5</option>
     </select>
   </div>
-    <div class="form-group mb-3">
-    <label for="arquivo" class="mb-1">Categoria</label>
-    <input type="file" class="form-control" id="arquivo">
+    @*<div class="form-group mb-3">
+    <label for="arquivo" class="mb-1">Arquivo</label>
+    <input type="file" asp-for="Arquivo" class="form-control" id="arquivo">
+  </div>*@
+  <div class="form-group mb-3">
+    <label for="arquivo" class="mb-1">Arquivo</label>
+    <input type="text" asp-for="Arquivo" class="form-control" id="arquivo" placeholder="Arquivo">
   </div>
-  <a type="submit" class="btn btn-primary">Cadastrar</a>
+  <button type="submit" class="btn btn-primary">Cadastrar</button>
 </form>

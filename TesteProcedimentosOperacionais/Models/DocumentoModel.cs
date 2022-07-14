@@ -6,15 +6,13 @@ namespace TesteProcedimentosOperacionais.Models
     {
         [Key]
         public int Codigo { get; set; }
-        [Required]
-        public string Nome { get; set; }
-        [Required]
+        //[Required]
         public string Titulo { get; set; }
-        [Required]
+        //[Required]
         public string Processo { get; set; }
-        [Required]
+        //[Required]
         public string Categoria { get; set; }
-        [Required]
+        //[Required]
         public string Arquivo { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using TesteProcedimentosOperacionais.Data;
 namespace TesteProcedimentosOperacionais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20220714024658_InitialMigration")]
+    [Migration("20220714143534_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,10 +31,6 @@ namespace TesteProcedimentosOperacionais.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
 
