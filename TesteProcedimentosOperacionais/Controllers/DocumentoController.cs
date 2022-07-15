@@ -37,10 +37,11 @@ namespace TesteProcedimentosOperacionais.Controllers
             {              
                 var fileName = Path.GetFileName(file.FileName);
                 fileName = string.Format(fileName, Guid.NewGuid());
-                var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", fileName);
-                documento.Arquivo = filePath;
+                var absoluteFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", fileName);
+                var relativeFilePath = "/arquivos/" + fileName;
+                documento.Arquivo = relativeFilePath;
 
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                using (var fileStream = new FileStream(absoluteFilePath, FileMode.Create))
                 {
                     await file.CopyToAsync(fileStream);
                 }
