@@ -34,12 +34,11 @@ namespace TesteProcedimentosOperacionais.Controllers
             Console.WriteLine("file: " + file);
 
             if (file != null && file.Length > 0)
-            {
-                var fileTime = DateTime.UtcNow.ToString("yyMMddHHmmss");
-                var fileName = fileTime + Path.GetFileName(file.FileName);
+            {              
+                var fileName = Path.GetFileName(file.FileName);
+                fileName = string.Format(fileName, Guid.NewGuid());
                 var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", fileName);
                 documento.Arquivo = filePath;
-                Console.WriteLine(documento);
 
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
