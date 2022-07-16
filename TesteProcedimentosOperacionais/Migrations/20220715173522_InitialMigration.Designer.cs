@@ -10,7 +10,7 @@ using TesteProcedimentosOperacionais.Data;
 namespace TesteProcedimentosOperacionais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20220714143534_InitialMigration")]
+    [Migration("20220715173522_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,9 +26,10 @@ namespace TesteProcedimentosOperacionais.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Arquivo")
+                    b.Property<string>("ArquivoPathRel")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("Arquivo");
 
                     b.Property<string>("Categoria")
                         .IsRequired()

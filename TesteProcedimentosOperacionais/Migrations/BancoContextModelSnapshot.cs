@@ -24,9 +24,10 @@ namespace TesteProcedimentosOperacionais.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Arquivo")
+                    b.Property<string>("ArquivoPathRel")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("longtext")
+                        .HasColumnName("Arquivo");
 
                     b.Property<string>("Categoria")
                         .IsRequired()

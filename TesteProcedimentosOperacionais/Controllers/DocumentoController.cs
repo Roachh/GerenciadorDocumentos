@@ -21,34 +21,36 @@ namespace TesteProcedimentosOperacionais.Controllers
         {
             return View();
         }
-        public IActionResult Consulta()
+        public IActionResult Consultar()
         {            
             List<DocumentoModel> documentos = _documentoRepositorio.BuscarTodos();         
             return View(documentos);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(DocumentoModel documento, IFormFile file)
+        public async Task<IActionResult> Cadastrar([Bind("Codigo, Titulo, Categoria, Processo, Arquivo")] DocumentoModel documento)
         {
-            Console.WriteLine("documento: " + documento.Titulo);
-            Console.WriteLine("file: " + file);
+            var arquivo = documento.Arquivo;            
+            if (arquivo != null && arquivo.Length > 0)
+            {                
+                var nomeDoArquivo = Guid.NewGuid() + Path.GetFileName(arquivo.FileName);
+                var pathAbsoluto = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", nomeDoArquivo);
+            var pathRelativo = "/arquivos/" + nomeDoArquivo;
+            documento.ArquivoPathRel = pathRelativo;                
 
-            if (file != null && file.Length > 0)
-            {              
-                var fileName = Path.GetFileName(file.FileName);
-                fileName = string.Format(fileName, Guid.NewGuid());
-                var absoluteFilePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", fileName);
-                var relativeFilePath = "/arquivos/" + fileName;
-                documento.Arquivo = relativeFilePath;
-
-                using (var fileStream = new FileStream(absoluteFilePath, FileMode.Create))
+                if (ModelState.IsValid)
                 {
-                    await file.CopyToAsync(fileStream);
-                }
+                    using (var fileStream = new FileStream(pathAbsoluto, FileMode.Create))
+                    {
+                        await arquivo.CopyToAsync(fileStream);
+                    }
+                    _documentoRepositorio.Adicionar(documento);
 
-                _documentoRepositorio.Adicionar(documento);    
+                    return RedirectToAction("Consultar");
+                }           
             }
-            return RedirectToAction("Cadastrar");
+
+            return View(documento);
         }
     }
 }
