@@ -1,53 +1,45 @@
 ﻿@model List<DocumentoModel>
 @{
-    ViewData["Title"] = "Lista de Documentos";
+	ViewData["Title"] = "Lista de Documentos";
 }
 
-    <h1 class="display-4 m-5">Documentos</h1>
- <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Código</th>
-      <th scope="col">Título</th>
-      <th scope="col">Categoria</th>
-      <th scope="col">Processo</th>
-      <th scope="col">Arquivo</th>
-    </tr>
-  </thead>
-  <tbody>
-        @if(Model != null && Model.Any())
-        {
-            foreach (var documento in Model)
-            {
-                 <tr>
-                      <th scope="row">@documento.Codigo</th>
-                      <td>@documento.Titulo</td>
-                      <td>@documento.Categoria</td>
-                      <td>@documento.Processo</td>
-                      <td><a href="@documento.ArquivoPathRel" target="_blank" class="btn btn-primary">Download</a></td>
-                 </tr>
-            }
-        }
-        <tr>
-      <th scope="row">2</th>
-      <td>Procedimento 2</td>
-      <td>B</td>
-      <td>Análise</td>
-      <td><a type="submit" class="btn btn-primary">Download</a></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Procedimento 3</td>
-      <td>C</td>
-      <td>Melhoria</td>
-      <td><a type="submit" class="btn btn-primary">Download</a></td>
-    </tr>
-     <tr>
-      <th scope="row">3</th>
-      <td>Procedimento 4</td>
-      <td>D</td>
-      <td>Excelência</td>
-      <td><a type="submit" class="btn btn-primary">Download</a></td>
-    </tr>
-  </tbody>
+@if (TempData["MensagemSucesso"] != null)
+{
+	<div class="alert alert-success text-center" role="alert">
+		<button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+		@TempData["MensagemSucesso"]
+	</div>
+}
+
+@if(TempData["MensagemErro"] != null)
+{
+<div class="alert alert-danger text-center" role="alert">
+	<button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+	@TempData["MensagemErro"]
+</div>
+}
+
+<h1 class="display-4 m-4 text-center">Documentos</h1>
+<table class="table">
+	<thead>
+		<tr>
+			<th scope="col">Código</th>
+			<th scope="col">Título</th>
+			<th scope="col">Categoria</th>
+			<th scope="col">Processo</th>
+			<th scope="col">Arquivo</th>
+		</tr>
+	</thead>
+	<tbody>
+			@foreach (var documento in ViewBag.Documentos)
+			{
+				<tr>
+					<th scope="row">@documento.Codigo</th>
+					<td>@documento.Titulo</td>
+					<td>@documento.Categoria</td>
+					<td>@documento.ProcessoId</td>
+					<td><a href="@documento.ArquivoPathRel" target="_blank" class="btn btn-primary">Download</a></td>
+				</tr>
+			}
+	</tbody>
 </table>

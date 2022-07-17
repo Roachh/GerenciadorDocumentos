@@ -12,6 +12,7 @@ builder.Services.AddDbContext<BancoContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 builder.Services.AddScoped<IDocumentoRepositorio, DocumentoRepositorio>();
+builder.Services.AddScoped<IProcessoRepositorio, ProcessoRepositorio>();
 
 
 

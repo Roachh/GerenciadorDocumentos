@@ -10,7 +10,7 @@ namespace TesteProcedimentosOperacionais.Repositorio
         {
             _bancoContext = bancoContext;
         }
-        public List<DocumentoModel> BuscarTodos()
+        public List<DocumentoModel> BuscarDocumentos()
         {            
             return _bancoContext.Documentos.ToList();
         }
@@ -23,6 +23,6 @@ namespace TesteProcedimentosOperacionais.Repositorio
             return documento;
         }
 
-       
-    }
+		
+	}
 }

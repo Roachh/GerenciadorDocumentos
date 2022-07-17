@@ -7,9 +7,12 @@ namespace TesteProcedimentosOperacionais.Controllers
     public class DocumentoController : Controller
     {
         private readonly IDocumentoRepositorio _documentoRepositorio;
-        public DocumentoController(IDocumentoRepositorio documentoRepositorio)
+        private readonly IProcessoRepositorio _processoRepositorio;
+
+        public DocumentoController(IDocumentoRepositorio documentoRepositorio, IProcessoRepositorio processoRepositorio)
         {
             _documentoRepositorio = documentoRepositorio;
+            _processoRepositorio = processoRepositorio;
         }
 
         public IActionResult Index()
@@ -19,38 +22,52 @@ namespace TesteProcedimentosOperacionais.Controllers
 
         public IActionResult Cadastrar()
         {
+            List<ProcessoModel> processos = _processoRepositorio.BuscarProcessos();
+            ViewBag.Processos = processos;
             return View();
         }
         public IActionResult Consultar()
-        {            
-            List<DocumentoModel> documentos = _documentoRepositorio.BuscarTodos();         
-            return View(documentos);
+        {
+            List<DocumentoModel> documentos = _documentoRepositorio.BuscarDocumentos();
+            ViewBag.Documentos = documentos;
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar([Bind("Codigo, Titulo, Categoria, Processo, Arquivo")] DocumentoModel documento)
+        public async Task<IActionResult> Cadastrar([Bind("Codigo, Titulo, Categoria, ProcessoId, Arquivo")] DocumentoModel documento)
         {
-            var arquivo = documento.Arquivo;            
-            if (arquivo != null && arquivo.Length > 0)
-            {                
-                var nomeDoArquivo = Guid.NewGuid() + Path.GetFileName(arquivo.FileName);
-                var pathAbsoluto = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", nomeDoArquivo);
-            var pathRelativo = "/arquivos/" + nomeDoArquivo;
-            documento.ArquivoPathRel = pathRelativo;                
-
-                if (ModelState.IsValid)
+            try
+            {
+                var arquivo = documento.Arquivo;
+                if (arquivo != null && arquivo.Length > 0)
                 {
-                    using (var fileStream = new FileStream(pathAbsoluto, FileMode.Create))
+                    var nomeDoArquivo = Guid.NewGuid() + Path.GetFileName(arquivo.FileName);
+                    var pathAbsoluto = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/arquivos", nomeDoArquivo);
+                    var pathRelativo = "/arquivos/" + nomeDoArquivo;
+                    documento.ArquivoPathRel = pathRelativo;
+
+                    if (ModelState.IsValid)
                     {
-                        await arquivo.CopyToAsync(fileStream);
+                        using (var fileStream = new FileStream(pathAbsoluto, FileMode.Create))
+                        {
+                            await arquivo.CopyToAsync(fileStream);
+                        }
+                        _documentoRepositorio.Adicionar(documento);
+                        TempData["MensagemSucesso"] = "Documento adicionado com sucesso";
+
+                        return RedirectToAction("Consultar");
                     }
-                    _documentoRepositorio.Adicionar(documento);
+                }
 
-                    return RedirectToAction("Consultar");
-                }           
+                List<ProcessoModel> processos = _processoRepositorio.BuscarProcessos();
+                ViewBag.Processos = processos;
+                return View(documento);
             }
-
-            return View(documento);
+            catch (Exception erro)
+            {
+                TempData["MensagemErro"] = $"Ops, não conseguimos adicionar o documento, tente novamente. Erro: {erro.Message}";
+                return RedirectToAction("Consultar");
+            }
         }
     }
 }
