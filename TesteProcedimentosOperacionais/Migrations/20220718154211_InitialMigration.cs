@@ -13,6 +13,21 @@ namespace TesteProcedimentosOperacionais.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "Processos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Processos", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Documentos",
                 columns: table => new
                 {
@@ -29,21 +44,12 @@ namespace TesteProcedimentosOperacionais.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Documentos", x => x.Codigo);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Processos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Nome = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Processos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Documentos_Processos_ProcessoId",
+                        column: x => x.ProcessoId,
+                        principalTable: "Processos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -61,6 +67,11 @@ namespace TesteProcedimentosOperacionais.Migrations
                 table: "Processos",
                 columns: new[] { "Id", "Nome" },
                 values: new object[] { 3, "Processo 3" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Documentos_ProcessoId",
+                table: "Documentos",
+                column: "ProcessoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

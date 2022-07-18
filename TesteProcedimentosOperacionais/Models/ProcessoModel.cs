@@ -2,7 +2,7 @@
 
 namespace TesteProcedimentosOperacionais.Models
 {
-	public class ProcessoModel
+	public class Processo
 	{
 		[Key]
 		public int Id { get; set; }

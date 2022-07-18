@@ -4,8 +4,7 @@ namespace TesteProcedimentosOperacionais.Repositorio
 {
     public interface IDocumentoRepositorio
     {
-        List<DocumentoModel> BuscarDocumentos();
-        DocumentoModel Adicionar(DocumentoModel documento);
-		
-	}
+        List<Documento> BuscarDocumentos();
+        Documento Adicionar(Documento documento);
+    }
 }

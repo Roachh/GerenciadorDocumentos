@@ -1,4 +1,5 @@
-﻿using TesteProcedimentosOperacionais.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using TesteProcedimentosOperacionais.Data;
 using TesteProcedimentosOperacionais.Models;
 
 namespace TesteProcedimentosOperacionais.Repositorio
@@ -10,19 +11,16 @@ namespace TesteProcedimentosOperacionais.Repositorio
         {
             _bancoContext = bancoContext;
         }
-        public List<DocumentoModel> BuscarDocumentos()
+        public List<Documento> BuscarDocumentos()
         {            
-            return _bancoContext.Documentos.ToList();
+            return _bancoContext.Documentos.Include(x => x.Processo).ToList();
         }
-        public DocumentoModel Adicionar(DocumentoModel documento)
+        public Documento Adicionar(Documento documento)
         {
-            // gravar no banco de dados
             _bancoContext.Documentos.Add(documento);
             _bancoContext.SaveChanges();
 
             return documento;
-        }
-
-		
+        }		
 	}
 }

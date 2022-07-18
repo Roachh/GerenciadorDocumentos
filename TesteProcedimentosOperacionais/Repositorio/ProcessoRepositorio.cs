@@ -10,7 +10,7 @@ namespace TesteProcedimentosOperacionais.Repositorio
 		{
 			_bancoContext = bancoContext;
 		}
-		public List<ProcessoModel> BuscarProcessos()
+		public List<Processo> BuscarProcessos()
 		{
 			return _bancoContext.Processos.ToList();
 		}

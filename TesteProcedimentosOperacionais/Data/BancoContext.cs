@@ -10,23 +10,23 @@ namespace TesteProcedimentosOperacionais.Data
 
         }
 
-        public DbSet<DocumentoModel> Documentos { get; set; }
-        public DbSet<ProcessoModel> Processos { get; set; }
+        public DbSet<Documento> Documentos { get; set; }
+        public DbSet<Processo> Processos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProcessoModel>().HasData(
-                new ProcessoModel
+            modelBuilder.Entity<Processo>().HasData(
+                new Processo
                 {
                     Id = 1,
                     Nome = "Processo 1"
                 },
-                new ProcessoModel
+                new Processo
                 {
                     Id = 2,
                     Nome = "Processo 2"
                 },
-                new ProcessoModel
+                new Processo
                 {
                     Id = 3,
                     Nome = "Processo 3"

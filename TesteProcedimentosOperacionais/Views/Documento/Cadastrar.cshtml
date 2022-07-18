@@ -1,4 +1,4 @@
-﻿@model DocumentoModel
+﻿@model Documento
 
 @{
 	ViewData["Title"] = "Cadastro de Documento";
@@ -9,6 +9,7 @@
 </div>
 
 <form asp-controller="Documento" asp-action="Cadastrar" method="post" enctype="multipart/form-data">
+	<div asp-validation-summary="All"></div>
 	<div class="form-group mb-3">
 		<label for="codigo" class="mb-1">Código</label>
 		<input type="number" min="0" asp-for="Codigo" class="form-control" id="codigo">

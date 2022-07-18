@@ -1,4 +1,4 @@
-﻿@model List<DocumentoModel>
+﻿@model List<Documento>
 @{
 	ViewData["Title"] = "Lista de Documentos";
 }
@@ -37,7 +37,7 @@
 					<th scope="row">@documento.Codigo</th>
 					<td>@documento.Titulo</td>
 					<td>@documento.Categoria</td>
-					<td>@documento.ProcessoId</td>
+					<td>@documento.Processo.Nome</td>
 					<td><a href="@documento.ArquivoPathRel" target="_blank" class="btn btn-primary">Download</a></td>
 				</tr>
 			}

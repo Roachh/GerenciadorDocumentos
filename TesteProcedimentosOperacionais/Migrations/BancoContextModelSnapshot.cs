@@ -19,7 +19,7 @@ namespace TesteProcedimentosOperacionais.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.DocumentoModel", b =>
+            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Documento", b =>
                 {
                     b.Property<int?>("Codigo")
                         .ValueGeneratedOnAdd()
@@ -42,10 +42,12 @@ namespace TesteProcedimentosOperacionais.Migrations
 
                     b.HasKey("Codigo");
 
+                    b.HasIndex("ProcessoId");
+
                     b.ToTable("Documentos");
                 });
 
-            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.ProcessoModel", b =>
+            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Processo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,6 +77,17 @@ namespace TesteProcedimentosOperacionais.Migrations
                             Id = 3,
                             Nome = "Processo 3"
                         });
+                });
+
+            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Documento", b =>
+                {
+                    b.HasOne("TesteProcedimentosOperacionais.Models.Processo", "Processo")
+                        .WithMany()
+                        .HasForeignKey("ProcessoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Processo");
                 });
 #pragma warning restore 612, 618
         }
