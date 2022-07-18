@@ -1,24 +1,24 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    background-color: #007f7b;
+    color: white;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .field-validation-error {
-    color: #e01d1d;
+    color: #ef8e8e;
 }
 
 .close-alert {
@@ -30,4 +30,69 @@ body {
     height: 25px;
     font-size: 10px;
     padding: 0;
+}
+
+/* Layout */
+
+.navbar {
+    background-color: #14687a;
+}
+
+.footer {
+    /*    margin-top: 50px;*/
+    color: white;
+    opacity: 0.5;
+    bottom: auto !important;
+    justify-self: flex-end;
+    position: relative !important;
+    margin-top: auto;
+    padding-left: 25px;
+    margin-right: 0;
+}
+
+/* Home */
+
+.home-container h1 {
+    color: white;
+}
+
+@keyframes fadeInFromNone {
+    0% {
+        display: none;
+        opacity: 0;
+    }
+
+    1% {
+        display: block;
+        opacity: 0;
+    }
+
+    100% {
+        display: block;
+        opacity: 1;
+    }
+}
+
+.titulo {
+    animation: fadeInFromNone .5s ease-out;
+}
+
+.botoes {
+    opacity: 0;
+    animation: fadeInFromNone 2s ease-out;
+    animation-delay: .5s;
+    animation-fill-mode: forwards;
+}
+
+/* Cadastro */
+
+.cadastro-form {
+    max-width: 800px;
+    margin: auto;
+}
+
+@media only screen and (min-width: 576px) {
+    #codigo {
+        width: 10%;
+    }
 }

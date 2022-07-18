@@ -1,8 +1,40 @@
 ﻿@{
-    ViewData["Title"] = "Página Inicial";
+	ViewData["Title"] = "Página Inicial";
+	Layout = "";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Bem-Vindo!</h1>
-    <p>Clique em "Cadastrar" para adicionar um documento ou clique em consultar para listar todos os documentos.</p>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<style>
+		body {
+			background-image: linear-gradient(to right, rgb(0, 102, 121), rgb(0, 127, 123));
+		}
+	</style>
+
+
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Gerenciador de Documentos</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/TesteProcedimentosOperacionais.styles.css" asp-append-version="true" />
+</head>
+<body>
+	<div class="container home-container">
+		<div class="text-center d-flex flex-column justify-content-center" style="height: 100vh">
+			<h1 class="display-4 mb-5 titulo">Gerenciador de Documentos</h1>
+			<div class="botoes d-flex justify-content-center mx-auto col-sm-5">
+				<a type="button" asp-controller="Documento" asp-action="Cadastrar" class="btn btn-info btn-lg me-4 text-light flex-fill d-flex align-items-center justify-content-center fs-3 rounded-pill">Cadastrar</a>
+				<a type="button" asp-controller="Documento" asp-action="Cadastrar" class="btn btn-info btn-lg text-light flex-fill d-flex align-items-center justify-content-center fs-3 rounded-pill">Consultar</a>
+			</div>
+		</div>
+	</div>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
+
