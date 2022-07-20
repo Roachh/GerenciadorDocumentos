@@ -1,5 +1,4 @@
-﻿@model List<Documento>
-@{
+﻿@{
 	ViewData["Title"] = "Lista de Documentos";
 }
 
@@ -11,12 +10,12 @@
 	</div>
 }
 
-@if(TempData["MensagemErro"] != null)
+@if (TempData["MensagemErro"] != null)
 {
-<div class="alert alert-danger text-center" role="alert">
-	<button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
-	@TempData["MensagemErro"]
-</div>
+	<div class="alert alert-danger text-center" role="alert">
+		<button type="button" class="btn btn-danger btn-sm close-alert" aria-label="Close">X</button>
+		@TempData["MensagemErro"]
+	</div>
 }
 
 <h1 class="display-4 m-5 text-center">Documentos</h1>
@@ -31,16 +30,22 @@
 		</tr>
 	</thead>
 	<tbody>
-			@foreach (var documento in ViewBag.Documentos)
-			{
-				<tr>
-					<th scope="row">@documento.Codigo</th>
-					<td>@documento.Titulo</td>
-					<td>@documento.Categoria</td>
-					<td>@documento.Processo.Nome</td>
-					<td><a href="@documento.ArquivoPathRel" target="_blank" class="btn btn-primary">Download</a></td>
-				</tr>
-			}
+		@foreach (var documento in ViewBag.Documentos)
+		{
+			<tr>
+				<th scope="row">@documento.Codigo</th>
+				<td>@documento.Titulo</td>
+				<td>@documento.Categoria</td>
+				<td>@documento.Processo.Nome</td>
+				@{
+					string[] strings = documento.ArquivoPathRel.Split('.');
+					string extensao = (strings[strings.Length - 1]).ToLower().Substring(0, 3);
+				}
+				<td>
+					<a href="@documento.ArquivoPathRel" target="_blank" class=""><img src="/images/@(extensao).png" style="width: 30px" /></a>
+				</td>
+			</tr>
+		}
 	</tbody>
 </table>
 
