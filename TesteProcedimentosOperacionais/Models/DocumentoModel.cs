@@ -22,7 +22,7 @@ namespace TesteProcedimentosOperacionais.Models
         public string Categoria { get; set; }
 
         [Column("Arquivo")]
-        public string? ArquivoPathRel { get; set; }
+        public string? NomeArquivo { get; set; }
 
         [NotMapped]
         [FormatoValido(ErrorMessage = "Selecione um arquivo com extensão válida.")]

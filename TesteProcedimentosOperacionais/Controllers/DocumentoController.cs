@@ -40,11 +40,8 @@ namespace TesteProcedimentosOperacionais.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var nomeArquivo = Guid.NewGuid() + Path.GetFileName(documento.Arquivo.FileName);
-                    var pathRelativo = "/arquivos/" + nomeArquivo;
-                    documento.ArquivoPathRel = pathRelativo;
-
-                    gravarArquivo(documento.Arquivo, nomeArquivo);
+                    documento.NomeArquivo = Guid.NewGuid() + Path.GetFileName(documento.Arquivo.FileName);
+                    gravarArquivo(documento.Arquivo, documento.NomeArquivo);
                     _documentoRepositorio.Adicionar(documento);
 
                     TempData["MensagemSucesso"] = "Documento adicionado com sucesso.";

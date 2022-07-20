@@ -30,21 +30,24 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var documento in ViewBag.Documentos)
+		@if (ViewBag.Documentos != null)
 		{
-			<tr>
-				<th scope="row">@documento.Codigo</th>
-				<td>@documento.Titulo</td>
-				<td>@documento.Categoria</td>
-				<td>@documento.Processo.Nome</td>
-				@{
-					string[] strings = documento.ArquivoPathRel.Split('.');
-					string extensao = (strings[strings.Length - 1]).ToLower().Substring(0, 3);
-				}
-				<td>
-					<a href="@documento.ArquivoPathRel" target="_blank" class=""><img src="/images/@(extensao).png" style="width: 30px" /></a>
-				</td>
-			</tr>
+			@foreach (var documento in ViewBag.Documentos)
+			{
+				<tr>
+					<th scope="row">@documento.Codigo</th>
+					<td>@documento.Titulo</td>
+					<td>@documento.Categoria</td>
+					<td>@documento.Processo.Nome</td>
+					@{
+						string[] strings = documento.NomeArquivo.Split('.');
+						string extensao = (strings[strings.Length - 1]).Substring(0, 3).ToLower();
+					}
+					<td>
+						<a href="/arquivos/@documento.NomeArquivo" target="_blank" class=""><img src="/images/@(extensao).png" style="width: 30px" /></a>
+					</td>
+				</tr>
+			}
 		}
 	</tbody>
 </table>
