@@ -11,8 +11,8 @@ using TesteProcedimentosOperacionais.Data;
 namespace TesteProcedimentosOperacionais.Migrations
 {
     [DbContext(typeof(BancoContext))]
-    [Migration("20220720012836_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20220725140152_AdicionarCategorias")]
+    partial class AdicionarCategorias
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,15 +21,70 @@ namespace TesteProcedimentosOperacionais.Migrations
                 .HasAnnotation("ProductVersion", "6.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Categoria", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("ProcessoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categorias");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Categoria 1",
+                            ProcessoId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Categoria 2",
+                            ProcessoId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Categoria 3",
+                            ProcessoId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Categoria 4",
+                            ProcessoId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "Categoria 5",
+                            ProcessoId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "Categoria 6",
+                            ProcessoId = 3
+                        });
+                });
+
             modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Documento", b =>
                 {
                     b.Property<int?>("Codigo")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<string>("Categoria")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("CategoriaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("NomeArquivo")
                         .HasColumnType("longtext")
@@ -43,6 +98,8 @@ namespace TesteProcedimentosOperacionais.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Codigo");
+
+                    b.HasIndex("CategoriaId");
 
                     b.HasIndex("ProcessoId");
 
@@ -83,11 +140,19 @@ namespace TesteProcedimentosOperacionais.Migrations
 
             modelBuilder.Entity("TesteProcedimentosOperacionais.Models.Documento", b =>
                 {
+                    b.HasOne("TesteProcedimentosOperacionais.Models.Categoria", "Categoria")
+                        .WithMany()
+                        .HasForeignKey("CategoriaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("TesteProcedimentosOperacionais.Models.Processo", "Processo")
                         .WithMany()
                         .HasForeignKey("ProcessoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Categoria");
 
                     b.Navigation("Processo");
                 });

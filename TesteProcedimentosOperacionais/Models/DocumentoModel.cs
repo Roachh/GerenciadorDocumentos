@@ -14,12 +14,15 @@ namespace TesteProcedimentosOperacionais.Models
         [Required(ErrorMessage = "Digite o título do documento.")]
         public string Titulo { get; set; }
 
+        [Required(ErrorMessage = "Selecione o processo do documento.")]
         public int ProcessoId { get; set; }
 
         public Processo? Processo { get; set; }
 
-        [Required(ErrorMessage = "Selecione a categoria do documento.")]      
-        public string Categoria { get; set; }
+        [Required(ErrorMessage = "Selecione a categoria do documento.")]
+        public int CategoriaId { get; set; }
+
+        public Categoria? Categoria { get; set; }
 
         [Column("Arquivo")]
         public string? NomeArquivo { get; set; }

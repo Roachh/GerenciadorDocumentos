@@ -8,11 +8,13 @@ namespace TesteProcedimentosOperacionais.Controllers
     {
         private readonly IDocumentoRepositorio _documentoRepositorio;
         private readonly IProcessoRepositorio _processoRepositorio;
+        private readonly ICategoriaRepositorio _categoriaRepositorio;
 
-        public DocumentoController(IDocumentoRepositorio documentoRepositorio, IProcessoRepositorio processoRepositorio)
+        public DocumentoController(IDocumentoRepositorio documentoRepositorio, IProcessoRepositorio processoRepositorio, ICategoriaRepositorio categoriaRepositorio)
         {
             _documentoRepositorio = documentoRepositorio;
             _processoRepositorio = processoRepositorio;
+            _categoriaRepositorio = categoriaRepositorio;
         }
 
         public IActionResult Index()
@@ -24,6 +26,10 @@ namespace TesteProcedimentosOperacionais.Controllers
         {
             List<Processo> processos = _processoRepositorio.BuscarProcessos();
             ViewBag.Processos = processos;
+
+            List<Categoria> categorias = _categoriaRepositorio.BuscarCategorias(processos.First().Id);
+            ViewBag.Categorias = categorias;
+
             return View();
         }
         public IActionResult Consultar()
@@ -34,7 +40,7 @@ namespace TesteProcedimentosOperacionais.Controllers
         }
 
         [HttpPost]
-        public IActionResult Cadastrar([Bind("Codigo, Titulo, Categoria, ProcessoId, Arquivo")] Documento documento)
+        public IActionResult Cadastrar([Bind("Codigo, Titulo, ProcessoId, CategoriaId, Arquivo")] Documento documento)
         {
             try
             {
@@ -50,6 +56,10 @@ namespace TesteProcedimentosOperacionais.Controllers
 
                 List<Processo> processos = _processoRepositorio.BuscarProcessos();
                 ViewBag.Processos = processos;
+
+                List<Categoria> categorias = _categoriaRepositorio.BuscarCategorias(processos.First().Id);
+                ViewBag.Categorias = categorias;
+
                 return View(documento);
             }
             catch (Exception erro)
@@ -66,6 +76,13 @@ namespace TesteProcedimentosOperacionais.Controllers
             {
                 await arquivo.CopyToAsync(fileStream);
             }
+        }
+
+        [HttpGet]
+        public JsonResult pegarCategorias(int processoId)
+        {
+            List<Categoria> categorias = _categoriaRepositorio.BuscarCategorias(processoId);
+            return new JsonResult(Ok(categorias));
         }
     }
 }

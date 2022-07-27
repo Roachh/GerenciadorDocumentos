@@ -13,7 +13,10 @@ namespace TesteProcedimentosOperacionais.Repositorio
         }
         public List<Documento> BuscarDocumentos()
         {            
-            return _bancoContext.Documentos.Include(x => x.Processo).ToList();
+            return _bancoContext.Documentos
+                .Include(x => x.Processo)
+                .Include(x => x.Categoria)
+                .ToList();
         }
         public Documento Adicionar(Documento documento)
         {

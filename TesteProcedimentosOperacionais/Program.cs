@@ -13,6 +13,7 @@ builder.Services.AddDbContext<BancoContext>(options =>
 });
 builder.Services.AddScoped<IDocumentoRepositorio, DocumentoRepositorio>();
 builder.Services.AddScoped<IProcessoRepositorio, ProcessoRepositorio>();
+builder.Services.AddScoped<ICategoriaRepositorio, CategoriaRepositorio>();
 
 
 

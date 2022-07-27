@@ -37,7 +37,7 @@
 				<tr>
 					<th scope="row">@documento.Codigo</th>
 					<td>@documento.Titulo</td>
-					<td>@documento.Categoria</td>
+					<td>@documento.Categoria.Nome</td>
 					<td>@documento.Processo.Nome</td>
 					@{
 						string[] strings = documento.NomeArquivo.Split('.');
